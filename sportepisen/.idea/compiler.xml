@@ -6,11 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="mock" />
         <module name="config-service" />
-        <module name="heart-rate-collector-service" />
+        <module name="heart-rate-second-worker-service" />
         <module name="gateway-service" />
         <module name="heart-rate-worker-service" />
+        <module name="mock" />
+        <module name="heart-rate-collector-service" />
+        <module name="user-profile-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -23,8 +25,10 @@
       <module name="config-service" options="-parameters" />
       <module name="gateway-service" options="-parameters" />
       <module name="heart-rate-collector-service" options="-parameters" />
+      <module name="heart-rate-second-worker-service" options="-parameters" />
       <module name="heart-rate-worker-service" options="-parameters" />
       <module name="mock" options="-parameters" />
+      <module name="user-profile-service" options="-parameters" />
     </option>
   </component>
 </project>

@@ -9,6 +9,8 @@
         <option value="$PROJECT_DIR$/../config-service/pom.xml" />
         <option value="$PROJECT_DIR$/../heart-rate-worker-service/pom.xml" />
         <option value="$PROJECT_DIR$/../heart-rate-collector-service/pom.xml" />
+        <option value="$PROJECT_DIR$/../heart-rate-second-worker-service/pom.xml" />
+        <option value="$PROJECT_DIR$/../user-profile-service/pom.xml" />
       </list>
     </option>
   </component>
