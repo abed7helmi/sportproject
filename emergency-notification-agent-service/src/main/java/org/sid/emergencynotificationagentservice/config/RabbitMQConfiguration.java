@@ -1,4 +1,4 @@
-package org.sid.heartratesecondworkerservice.config;
+package org.sid.emergencynotificationagentservice.config;
 
 
 import org.springframework.amqp.core.Binding;
@@ -57,9 +57,9 @@ public class RabbitMQConfiguration {
 
     @Bean
     RabbitTemplate rabbitTemplate(ConnectionFactory factory){
-        RabbitTemplate rabbitTemplate=new RabbitTemplate(factory);
-        rabbitTemplate.setMessageConverter(messageConverter());
-        return rabbitTemplate;
+         RabbitTemplate rabbitTemplate=new RabbitTemplate(factory);
+         rabbitTemplate.setMessageConverter(messageConverter());
+         return rabbitTemplate;
     }
 
 

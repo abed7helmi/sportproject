@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitMQConfiguration {
 
     private static final String ROUTING_A = "routing.A";
-    private static final String ROUTING_B = "routing.B";
+    private static final String ROUTING_B = "routing.Emergency";
 
     @Bean
     Queue queueA(){
@@ -26,7 +26,7 @@ public class RabbitMQConfiguration {
 
     @Bean
     Queue queueB(){
-        return new Queue("queue.B",false);
+        return new Queue("EmergencyQueue",false);
 
     }
 
@@ -57,9 +57,9 @@ public class RabbitMQConfiguration {
 
     @Bean
     RabbitTemplate rabbitTemplate(ConnectionFactory factory){
-         RabbitTemplate rabbitTemplate=new RabbitTemplate(factory);
-         rabbitTemplate.setMessageConverter(messageConverter());
-         return rabbitTemplate;
+        RabbitTemplate rabbitTemplate=new RabbitTemplate(factory);
+        rabbitTemplate.setMessageConverter(messageConverter());
+        return rabbitTemplate;
     }
 
 

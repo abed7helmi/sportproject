@@ -16,5 +16,4 @@ public class HrSensor {
     Date date;
     //private Member member;
     Long memberId;
-
 }

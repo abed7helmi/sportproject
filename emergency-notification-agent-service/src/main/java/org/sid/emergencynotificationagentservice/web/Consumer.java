@@ -1,8 +1,8 @@
-package org.sid.heartrateworkerservice.web;
+package org.sid.emergencynotificationagentservice.web;
 
 import lombok.extern.slf4j.Slf4j;
-import org.sid.heartrateworkerservice.dto.HrSensorDTO;
-import org.sid.heartrateworkerservice.services.HrService;
+
+import org.sid.emergencynotificationagentservice.dto.HrSensorDTO;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,17 +11,14 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class Consumer {
 
-    @Autowired
-    private HrService hrService;
+    /*@Autowired
+    private HrService hrService;*/
 
-    @RabbitListener(queues = "queue.A")
+    @RabbitListener(queues = "EmergencyQueue")
     private void receive(HrSensorDTO message){
         System.out.println(message);
-        log.info("Message recu ",message);
-
-        hrService.checkHr(message);
-
+        log.info("Message urgence recu ",message);
+        //hrService.checkHr(message);
     }
-
 
 }

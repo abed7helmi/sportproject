@@ -10,6 +10,7 @@
         <module name="heart-rate-second-worker-service" />
         <module name="gateway-service" />
         <module name="heart-rate-worker-service" />
+        <module name="emergency-notification-agent-service" />
         <module name="mock" />
         <module name="heart-rate-collector-service" />
         <module name="user-profile-service" />
@@ -23,6 +24,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="billing" options="-parameters" />
       <module name="config-service" options="-parameters" />
+      <module name="emergency-notification-agent-service" options="-parameters" />
       <module name="gateway-service" options="-parameters" />
       <module name="heart-rate-collector-service" options="-parameters" />
       <module name="heart-rate-second-worker-service" options="-parameters" />

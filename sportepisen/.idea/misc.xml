@@ -11,6 +11,7 @@
         <option value="$PROJECT_DIR$/../heart-rate-collector-service/pom.xml" />
         <option value="$PROJECT_DIR$/../heart-rate-second-worker-service/pom.xml" />
         <option value="$PROJECT_DIR$/../user-profile-service/pom.xml" />
+        <option value="$PROJECT_DIR$/../emergency-notification-agent-service/pom.xml" />
       </list>
     </option>
   </component>

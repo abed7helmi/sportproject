@@ -13,11 +13,16 @@ public class HrService {
     @Autowired
     private UserRestClientService userRestClientService;
 
+    @Autowired
+    private Producer producer;
+
     public void checkHr (HrSensorDTO hrSensorDTO){
         if(this.checkSubscrib(hrSensorDTO)){
             System.out.println("user bien inscrit");
             if(this.checkEmergency(hrSensorDTO)){
                 System.out.println("appel urgence " + hrSensorDTO.getCardiacFrequency());
+                producer.send(hrSensorDTO);
+
             }
         }
 
