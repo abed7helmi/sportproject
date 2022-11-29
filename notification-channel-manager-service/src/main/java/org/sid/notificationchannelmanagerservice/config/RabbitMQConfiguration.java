@@ -1,4 +1,4 @@
-package org.sid.emergencynotificationagentservice.config;
+package org.sid.notificationchannelmanagerservice.config;
 
 
 import org.springframework.amqp.core.Binding;

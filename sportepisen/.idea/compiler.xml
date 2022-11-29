@@ -14,6 +14,7 @@
         <module name="mock" />
         <module name="heart-rate-collector-service" />
         <module name="user-profile-service" />
+        <module name="notification-channel-manager-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -30,6 +31,7 @@
       <module name="heart-rate-second-worker-service" options="-parameters" />
       <module name="heart-rate-worker-service" options="-parameters" />
       <module name="mock" options="-parameters" />
+      <module name="notification-channel-manager-service" options="-parameters" />
       <module name="user-profile-service" options="-parameters" />
     </option>
   </component>
