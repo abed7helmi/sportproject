@@ -7,6 +7,8 @@ import org.sid.mock.models.Member;
 import org.sid.mock.repositories.HeartRateProxy;
 import org.sid.mock.repositories.HrSensorRepository;
 import org.sid.mock.repositories.MemberRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -20,6 +22,9 @@ import java.util.Random;
 @Configuration
 @EnableScheduling
 public class SportJob {
+
+    Logger logger = LoggerFactory.getLogger(SportJob.class);
+
     public static boolean startmock=true;
 
     @Autowired
@@ -43,12 +48,13 @@ public class SportJob {
 
            for (Member m: members ){
 
-                HrSensor hr = HrSensor.builder().idHrSensor(null).state("good").cardiacFrequency(60+Math.random()*10).date(null).member(m).build();
+                HrSensor hr = HrSensor.builder().idHrSensor(null).state("good").cardiacFrequency(160+Math.random()*20).date(null).member(m).build();
 
 
-                hrSensorRepository.save(hr);
+                //hrSensorRepository.save(hr);
                 HrSensorDTO hrSensorDTO = new HrSensorDTO(hr.getIdHrSensor(),hr.getState(),hr.getCardiacFrequency(),hr.getDate(),hr.getMember().getIdMember());
                 heartRateProxy.sendHr(hrSensorDTO);
+
 
 
 

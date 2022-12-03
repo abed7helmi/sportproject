@@ -13,9 +13,10 @@ import java.util.List;
 public class Member {
     Long idMember;
     String memberFirstName;
-    String memberLastName;
+    String sexe;
+    int age;
+    /*String memberLastName;
     String memberEmail;
-    String memberPhone;
+    String memberPhone;*/
     Boolean memberSubscription;
-    private List<HrSensor> Hrs= new ArrayList<>();
 }

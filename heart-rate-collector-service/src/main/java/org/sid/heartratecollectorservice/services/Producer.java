@@ -2,6 +2,8 @@ package org.sid.heartratecollectorservice.services;
 
 import org.sid.heartratecollectorservice.dto.HrSensorDTO;
 import org.sid.heartratecollectorservice.models.HrSensor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 @Service
 public class Producer {
 
+    Logger logger = LoggerFactory.getLogger(Producer.class);
+
     @Autowired
     private RabbitTemplate rabbitTemplate;
     @Autowired
@@ -20,8 +24,8 @@ public class Producer {
 
 
     public void send(HrSensorDTO message){
-        System.out.println("wiiiw");
-        rabbitTemplate.convertAndSend(directExchange.getName(),"routing.A",message);
-        System.out.println("message send seccess");
+
+        rabbitTemplate.convertAndSend(directExchange.getName(),"routing.HeartRate",message);
+        logger.info("Heart Rate :  "+message + "send TO RABBITMQ BROKER (HeartRateQueue) BY THE HR COLLECTOR SERVICE");
     }
 }

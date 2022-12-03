@@ -3,6 +3,8 @@ package org.sid.notificationchannelmanagerservice.web;
 import lombok.extern.slf4j.Slf4j;
 
 import org.sid.notificationchannelmanagerservice.dto.CoachDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,12 +13,12 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class Consumer {
 
-
+    Logger logger = LoggerFactory.getLogger(Consumer.class);
 
     @RabbitListener(queues = "NotifQueue")
     private void receive(CoachDTO coachDTO){
-        System.out.println(coachDTO);
-        log.info("Message notif recu ",coachDTO);
+
+        logger.info("Message FROM BROKER NOTIFQUEUE ",coachDTO);
 
     }
 

@@ -2,6 +2,9 @@ package org.sid.mock.repositories;
 
 import org.sid.mock.dto.HrSensorDTO;
 import org.sid.mock.models.HrSensor;
+import org.sid.mock.task.SportJob;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -12,10 +15,12 @@ import java.util.Collections;
 @Service
 public class HeartRateProxy {
 
+    Logger logger = LoggerFactory.getLogger(HeartRateProxy.class);
+
     public void sendHr(HrSensorDTO hrSensor){
 
         String url="http://localhost:9999/heart-rate-collector-service/hr";
-        System.out.print("wwaaawwww");
+
         RestTemplate restTemplate = new RestTemplate();
 
         HttpEntity<HrSensorDTO> request = new HttpEntity<HrSensorDTO>(hrSensor);
@@ -26,6 +31,8 @@ public class HeartRateProxy {
                 new ParameterizedTypeReference<HrSensor>() {}
 
         );
+
+        logger.info("HR value calculated "+hrSensor.getCardiacFrequency() + " sent to the gateway for the user id : " + hrSensor.getIdmember());
 
     }
 

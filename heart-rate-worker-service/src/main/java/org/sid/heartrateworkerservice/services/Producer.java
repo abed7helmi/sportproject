@@ -17,8 +17,7 @@ public class Producer {
 
 
     public void send(HrSensorDTO message){
-        System.out.println("wiiiw");
         rabbitTemplate.convertAndSend(directExchange.getName(),"routing.Emergency",message);
-        System.out.println("message send seccess");
+
     }
 }

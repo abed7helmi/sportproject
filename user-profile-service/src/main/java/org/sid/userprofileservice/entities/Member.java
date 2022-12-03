@@ -19,6 +19,8 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long idMember;
     String memberFirstName;
+    String sexe;
+    int age;
     /*String memberLastName;
     String memberEmail;
     String memberPhone;*/

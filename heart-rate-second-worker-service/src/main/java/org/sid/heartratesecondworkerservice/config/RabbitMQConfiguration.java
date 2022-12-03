@@ -15,20 +15,16 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQConfiguration {
 
-    private static final String ROUTING_A = "routing.A";
-    private static final String ROUTING_B = "routing.Emergency";
+    private static final String ROUTING_A = "routing.HeartRate";
+
 
     @Bean
     Queue queueA(){
-        return new Queue("queue.A",false);
+        return new Queue("HeartRateQueue",false);
 
     }
 
-    @Bean
-    Queue queueB(){
-        return new Queue("EmergencyQueue",false);
 
-    }
 
     @Bean
     DirectExchange exchange(){
@@ -42,12 +38,7 @@ public class RabbitMQConfiguration {
                 .with(ROUTING_A);
     }
 
-    @Bean
-    Binding bindingB(Queue queueB,DirectExchange exchange){
-        return BindingBuilder.bind(queueB)
-                .to(exchange)
-                .with(ROUTING_B);
-    }
+
 
     @Bean
     MessageConverter messageConverter() {
@@ -61,6 +52,7 @@ public class RabbitMQConfiguration {
         rabbitTemplate.setMessageConverter(messageConverter());
         return rabbitTemplate;
     }
+
 
 
 

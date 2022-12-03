@@ -20,6 +20,6 @@ public class Producer {
 
     public void send(CoachDTO message){
         rabbitTemplate.convertAndSend(directExchange.getName(),"routing.Notif",message);
-        System.out.println("message notif send seccess");
+
     }
 }

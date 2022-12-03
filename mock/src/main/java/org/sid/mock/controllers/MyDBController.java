@@ -21,23 +21,23 @@ public class MyDBController {
 
     @GetMapping(path = "/addbd")
     public void addBd(){
-        System.out.println("wiiw");
+
         coachRepository.save(new Coach(null,"CoachSedak",null));
         coachRepository.save(new Coach(null,"CoachMounir",null));
         Coach c1 =coachRepository.findById(1L).get();
         Coach c2 =coachRepository.findById(2L).get();
 
-        memberRepository.save(new Member(null, "MemberEmna",true,null,c1));
-        memberRepository.save(new Member(null, "MemberAsma",true,null,c2));
+        memberRepository.save(new Member(null, "MemberCedric","H",20,true,null,c1));
+        memberRepository.save(new Member(null, "MemberMélanie","F",22,true,null,c1));
+        memberRepository.save(new Member(null, "MemberEmna","F",27,true,null,c2));
+        memberRepository.save(new Member(null, "MemberThomas","H",20,false,null,c1));
+        memberRepository.save(new Member(null, "MemberDavid","H",60,true,null,c2));
+        memberRepository.save(new Member(null, "MemberIsabelle","F",67,true,null,c2));
+        memberRepository.save(new Member(null, "MemberHelmi","H",20,true,null,c1));
+
 
 
     }
 
-    @GetMapping(path = "/test")
-    public void test(){
-        //Coach c1 =coachRepository.findById(1L).get();
-        List<Member> member = memberRepository.findAll();
-        List<Coach> member2 = coachRepository.findAll();
-        //System.out.println(c1);
-    }
+
 }
