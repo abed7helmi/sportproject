@@ -36,6 +36,8 @@ public class SportJob {
     private HrSensorRepository hrSensorRepository;
 
 
+
+
     @Scheduled(fixedRate = 15000L)
     public void productionJob() throws InternalException {
         long j=0;
