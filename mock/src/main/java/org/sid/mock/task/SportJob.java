@@ -50,7 +50,7 @@ public class SportJob {
 
            for (Member m: members ){
 
-                HrSensor hr = HrSensor.builder().idHrSensor(null).state("good").cardiacFrequency(160+Math.random()*20).date(null).member(m).build();
+                HrSensor hr = HrSensor.builder().state("").cardiacFrequency(160+Math.random()*20).date(null).member(m).build();
 
 
                 //hrSensorRepository.save(hr);

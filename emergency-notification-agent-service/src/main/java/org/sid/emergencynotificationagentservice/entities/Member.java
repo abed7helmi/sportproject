@@ -6,8 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Data
 @NoArgsConstructor
@@ -25,10 +24,8 @@ public class Member {
     String memberEmail;
     String memberPhone;*/
     Boolean memberSubscription;
-    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
-
-    private List<HrSensor> Hrs= new ArrayList<>();
+    /*@OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+    private List<HrSensor> Hrs= new ArrayList<>();*/
     @ManyToOne()
-    //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Coach coach;
 }

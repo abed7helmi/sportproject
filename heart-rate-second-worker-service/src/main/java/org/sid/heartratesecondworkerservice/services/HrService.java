@@ -3,6 +3,7 @@ package org.sid.heartratesecondworkerservice.services;
 
 import org.sid.heartratesecondworkerservice.dto.HrSensorDTO;
 import org.sid.heartratesecondworkerservice.models.Member;
+import org.sid.heartratesecondworkerservice.repo.HrSensorRepository;
 import org.sid.heartratesecondworkerservice.repo.UserRestClientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,18 +19,23 @@ public class HrService {
     private UserRestClientService userRestClientService;
 
     @Autowired
+    private HrSensorRepository hrSensorRepository;
+
+    @Autowired
     private Producer producer;
 
     public void checkHr (HrSensorDTO hrSensorDTO){
         Member member= userRestClientService.mumberById(hrSensorDTO.getIdmember());
         if(this.checkSubscrib(member)){
             logger.info("USER "+ member.getMemberFirstName()+" SUBSCRIBED");
+
             if(this.checkEmergency(member,hrSensorDTO)){
 
                 producer.send(hrSensorDTO);
                 logger.warn("CONTACT EMERGENCY SERVICE FOR USER  "+ member);
-
+                hrSensorDTO.setState("NOT GOOD");
             }
+            this.dataStorage(hrSensorDTO);
         }else {
             logger.warn("USER "+ member.getMemberFirstName()+" NOT SUBSCRIBED");
         }
@@ -46,6 +52,8 @@ public class HrService {
 
     }
 
+
+
     public boolean checkEmergency (Member member,HrSensorDTO hrSensorDTO){
 
 
@@ -59,5 +67,10 @@ public class HrService {
             return false;
         }
 
+    }
+
+
+    private void dataStorage (HrSensorDTO hrSensorDTO){
+        hrSensorRepository.save(hrSensorDTO);
     }
 }

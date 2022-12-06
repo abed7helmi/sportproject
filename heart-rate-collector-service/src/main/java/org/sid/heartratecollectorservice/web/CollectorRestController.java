@@ -2,7 +2,6 @@ package org.sid.heartratecollectorservice.web;
 
 
 import org.sid.heartratecollectorservice.dto.HrSensorDTO;
-import org.sid.heartratecollectorservice.models.HrSensor;
 import org.sid.heartratecollectorservice.services.Producer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

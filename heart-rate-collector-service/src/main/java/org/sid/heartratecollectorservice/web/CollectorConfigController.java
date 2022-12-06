@@ -1,4 +1,4 @@
-package org.sid.heartratecollectorservice.web;
+/*package org.sid.heartratecollectorservice.web;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -23,6 +23,6 @@ public class CollectorConfigController {
     public Map<String,String> params(){
         return Map.of("P1",p1,"P2",p2,"X",x,"Y",y);
     }
-}
+}*/
 
 

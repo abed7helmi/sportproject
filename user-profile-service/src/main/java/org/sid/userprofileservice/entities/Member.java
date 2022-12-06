@@ -25,10 +25,8 @@ public class Member {
     String memberEmail;
     String memberPhone;*/
     Boolean memberSubscription;
-    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
-
+    /*@OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<HrSensor> Hrs= new ArrayList<>();
     @ManyToOne()
-    //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Coach coach;
+    private Coach coach;*/
 }

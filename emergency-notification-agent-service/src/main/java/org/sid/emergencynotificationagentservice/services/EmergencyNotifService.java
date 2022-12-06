@@ -6,7 +6,7 @@ import org.sid.emergencynotificationagentservice.entities.Coach;
 import org.sid.emergencynotificationagentservice.entities.Member;
 import org.sid.emergencynotificationagentservice.repo.CoachRepository;
 import org.sid.emergencynotificationagentservice.repo.MemberRepository;
-import org.sid.emergencynotificationagentservice.web.Consumer;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
