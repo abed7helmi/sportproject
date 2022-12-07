@@ -14,4 +14,6 @@ public class CoachDTO {
     String coachFirstName;
     Long idMember;
     String memberFirstName;
+
+    double cardiacFrequency;
 }

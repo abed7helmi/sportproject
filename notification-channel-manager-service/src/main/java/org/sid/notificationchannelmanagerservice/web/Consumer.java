@@ -23,7 +23,9 @@ public class Consumer {
     private void receive(CoachDTO coachDTO) throws MqttException {
 
         logger.info("Message FROM BROKER NOTIFQUEUE "+coachDTO);
-        notificationService.send(coachDTO);
+        notificationService.sendOrCache(coachDTO);
+
+
 
     }
 
