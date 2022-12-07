@@ -6,9 +6,9 @@
  sudo apt update && sudo apt install consul
  
 # start consul service 
-ip a : to get MyIP
-sudo consul agent -server -bootstrap-expect=1 -data-dir=consul-data -ui -bind=MyIP
+. ip a : to get MyIP
+. sudo consul agent -server -bootstrap-expect=1 -data-dir=consul-data -ui -bind=MyIP
   
-  
-# Le service Config-service a était mis en place afin de centraliser les proprities partagés et pour qu'il attribue à chaque service sa configuration à son exécution , 
-# ce service permet également de modifier la config de chaque service à chaud ( sans arreter le service concerné) grace à un systéme de versionning soit en local soit distant sur git
+#Config-service
+. Le service Config-service a était mis en place afin de centraliser les proprities partagés et pour qu'il attribue à chaque service sa configuration à son exécution 
+. ce service permet également de modifier la config de chaque service à chaud ( sans arreter le service concerné) grace à un systéme de versionning soit en local soit distant sur git
