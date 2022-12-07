@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
+import androidx.core.app.NotificationCompat;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
@@ -21,6 +24,7 @@ import java.io.UnsupportedEncodingException;
 public class MainActivity extends Activity {
 
     private Button btn;
+    private TextView resulttext;
     private Button btnsend;
     private static final String TAG="MyTag";
     private String topic,clientID;
@@ -37,6 +41,7 @@ public class MainActivity extends Activity {
 
     private void init(){
         btn=findViewById(R.id.btn_Sub);
+        resulttext=findViewById(R.id.resulttext);
         btnsend=findViewById(R.id.btn_send);
         clientID ="xxx";
         topic = "testtopic/coach";
@@ -51,26 +56,30 @@ public class MainActivity extends Activity {
             public void onClick(View view) {
 
                  connect();
+                 //connectavailable();
+                 //send(2L);
             }
         });
 
-        btnsend.setOnClickListener(new View.OnClickListener() {
+       /* btnsend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 send();
             }
-        });
+        });*/
     }
+
 
     private void connect(){
         try {
+
             IMqttToken token = client.connect();
             token.setActionCallback(new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
                     // We are connected
-                    Log.d(TAG, "onSuccess");
+                    Log.d(TAG, "onSuccess : le coach est prét");
                     sub();
                 }
 
@@ -88,9 +97,10 @@ public class MainActivity extends Activity {
     }
 
 
-    private void send(){
-        topic = "testtopic/coach";
-        String payload = "the payload";
+
+    /*private void send(){
+        topic = "testtopic/coachdispo";
+        String payload = "1";
         byte[] encodedPayload = new byte[0];
         try {
             encodedPayload = payload.getBytes("UTF-8");
@@ -99,7 +109,7 @@ public class MainActivity extends Activity {
         } catch (UnsupportedEncodingException | MqttException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     private void sub(){
         try {
@@ -113,7 +123,13 @@ public class MainActivity extends Activity {
                 @Override
                 public void messageArrived(String topic, MqttMessage message) throws Exception {
                     Log.d(TAG,"topic :" + topic);
-                    Log.d(TAG,"message :" + new String(message.getPayload()));
+                    String resultmessagec=new String(message.getPayload());
+                    Log.d(TAG,"message :" +resultmessagec);
+
+                    resulttext.setText(resultmessagec);
+
+
+
                 }
 
                 @Override
