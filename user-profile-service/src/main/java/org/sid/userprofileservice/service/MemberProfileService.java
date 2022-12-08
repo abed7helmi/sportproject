@@ -19,7 +19,6 @@ public class MemberProfileService {
     }
 
     public Member addMember(Member userProfile){
-        userProfile.setSexe("M");
         return userProfileRepository.save(userProfile);
     }
 
