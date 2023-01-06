@@ -5,6 +5,7 @@ import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
@@ -19,6 +20,17 @@ public class RabbitMQConfiguration {
 
     private static final String ROUTING_B = "routing.Emergency";
     private static final String ROUTING_C = "routing.Notif";
+
+
+   /* @Bean
+    public ConnectionFactory connectionFactory() {
+        CachingConnectionFactory connectionFactory = new CachingConnectionFactory();
+        connectionFactory.setUsername("guest");
+        connectionFactory.setPassword("guest");
+        connectionFactory.setAddresses("127.0.0.1:15672,127.0.0.1:15673");
+        //connectionFactory.setChannelCacheSize(10);
+        return connectionFactory;
+    }*/
 
 
 
