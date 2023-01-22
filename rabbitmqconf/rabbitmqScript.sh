@@ -8,7 +8,7 @@ sudo docker network create rabbits
 
 sudo docker run -d --rm --net rabbits --hostname rabbit-1 --name rabbit-1 -p 5672:5672 -p 15672:15672 -e RABBITMQ_ERLANG_COOKIE=WAZIZIKZHSJPMASZAY rabbitmq:3.8-management
 
-sudo docker run -d --rm --net rabbits --hostname rabbit-1 --name rabbit-1 -p 5673:5672 -p 15673:15672 -e RABBITMQ_ERLANG_COOKIE=WAZIZIKZHSJPMASZAY rabbitmq:3.8-management
+sudo docker run -d --rm --net rabbits --hostname rabbit-2 --name rabbit-2 -p 5673:5672 -p 15673:15672 -e RABBITMQ_ERLANG_COOKIE=WAZIZIKZHSJPMASZAY rabbitmq:3.8-management
 
 #join node 2 to the cluster
 docker exec -it rabbit-2 rabbitmqctl stop_app
