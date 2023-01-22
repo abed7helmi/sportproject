@@ -1,3 +1,4 @@
 FROM openjdk:17
-COPY target/*.jar app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+EXPOSE 8084
+COPY target/user-profile-service-docker.jar user-profile-service-docker.jar
+ENTRYPOINT ["java","-jar","/user-profile-service-docker.jar"]
