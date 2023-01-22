@@ -113,6 +113,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>user-profile-service-docker</finalName>
 	</build>
 
 </project>
