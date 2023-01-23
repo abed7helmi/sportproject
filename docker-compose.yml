@@ -8,7 +8,7 @@ services:
       - "5673:5673"
       - "15672:15672"
   mongo:
-    container_name: mongo
+    container_name: "mongo"
     image: "mongo:latest"
     ports:
       - "27017:27017"
@@ -20,7 +20,7 @@ services:
       - "6379:6379"
 
   mysql:
-    image: "mysql:latest"
+    image: "mysql"
     container_name: "mysql"
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -44,24 +44,32 @@ services:
       - SPRING_PROFILES_ACTIVE=docker
     depends_on:
       - mysql
+      - redis
 
   heart-rate-collector-service:
     image: elaj/heart-rate-collector-service:latest
     container_name: heart-rate-collector-service
     environment:
       - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      - gateway-service
 
   heart-rate-worker-service:
     image: elaj/heart-rate-worker-service:latest
     container_name: heart-rate-worker
     environment:
       - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      - rabbitmq
+      - mongo
 
   notification-channel-service:
     image: elaj/notification-channel-manager-service:latest
     container_name: notification-channel
     environment:
       - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      - rabbitmq
 
   user-profile-service:
     image: elaj/user-profile-service:latest
