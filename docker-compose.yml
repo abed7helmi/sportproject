@@ -5,13 +5,79 @@ services:
     image: "rabbitmq:3-management"
     ports:
       - "5672:5672"
+      - "5673:5673"
       - "15672:15672"
-  mongodb:
+  mongo:
+    container_name: "mongo"
     image: "mongo:latest"
     ports:
       - "27017:27017"
+    expose:
+      - "27017"
   redis:
     image: "redis:alpine"
     ports:
       - "6379:6379"
+
+  mysql:
+    image: "mysql"
+    container_name: "mysql"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3308:3306"
+
+  gateway-service:
+    image: elaj/gateway-service:latest
+    container_name: gateway-service
+    ports:
+        - "9999:9999"
+    expose:
+      - "9999"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+
+  emergency-notification-service:
+    image: elaj/emergency-notification-agent-service:latest
+    container_name: emergency
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      - mysql
+      - redis
+
+  heart-rate-collector-service:
+    image: elaj/heart-rate-collector-service:latest
+    container_name: heart-rate-collector-service
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      - gateway-service
+
+  heart-rate-worker-service:
+    image: elaj/heart-rate-worker-service:latest
+    container_name: heart-rate-worker
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      - rabbitmq
+      - mongo
+
+  notification-channel-service:
+    image: elaj/notification-channel-manager-service:latest
+    container_name: notification-channel
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      - rabbitmq
+
+  user-profile-service:
+    image: elaj/user-profile-service:latest
+    container_name: user-profile-service
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      - mysql
+
+
   
