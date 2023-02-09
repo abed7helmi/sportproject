@@ -33,6 +33,7 @@ public class HeartRateProxy {
         );
 
         logger.info("HR value calculated "+hrSensor.getCardiacFrequency() + " sent to the gateway for the user id : " + hrSensor.getIdmember());
+        logger.info("HR value calculate2d "+hrSensor.toString());
 
     }
 

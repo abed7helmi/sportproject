@@ -2,6 +2,7 @@ package org.sid.notificationchannelmanagerservice.services;
 
 import org.eclipse.paho.client.mqttv3.*;
 import org.sid.notificationchannelmanagerservice.dto.CoachDTO;
+import org.sid.notificationchannelmanagerservice.dto.SaveCoachDTO;
 import org.sid.notificationchannelmanagerservice.web.Consumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,16 +24,13 @@ public class NotificationService {
     private RedisTemplate redisTemplate;
 
     Logger logger = LoggerFactory.getLogger(NotificationService.class);
-    private static final String KEY ="COACH";
-
-    //private boolean clientConnected = true;
-
 
     public void sendOrCache(CoachDTO coachDTO){
         if(this.coachConnected(coachDTO)){
             try {
+                logger.info("connected coach : "+ coachDTO.getCoachFirstName());
                 this.send(coachDTO);
-                logger.info("coach notified");
+
             } catch (MqttException e) {
                 throw new RuntimeException(e);
             }
@@ -41,11 +39,51 @@ public class NotificationService {
         }
 
     }
-
+    // TODO : on peut pas stocker plusieurs notifs pour le meme coach , si une nouvelle notif arrive elle ecrase celle qui existe deja : à ameliorer
     public void cacheCoach(CoachDTO coachDTO){
-        redisTemplate.opsForHash().put(KEY,coachDTO.getIdMember().toString(),coachDTO);
+        redisTemplate.opsForValue().set(coachDTO.getIdCoach().toString(), coachDTO);
+        logger.info("le coach id:"+coachDTO.getIdCoach().toString()+" name : "+coachDTO.getCoachFirstName().toString()+" n'est pas connecté , msg transféré dans le cache");
+    }
 
-        //List<CoachDTO> coachDTOList=redisTemplate.opsForHash().values(KEY);
+
+    public void subscribeCoachCache(SaveCoachDTO SaveCoachDTO){
+
+        try {
+            redisTemplate.opsForList().rightPush("connectedCoach",SaveCoachDTO.getIdCoach());
+            logger.info("Coach Ajouté dans le cache");
+            this.checkNotifiInCache(SaveCoachDTO);
+        }catch (Exception e){
+            logger.info("Erreur Ajout Coach dans le cache");
+        }
+
+    }
+
+
+    public void checkNotifiInCache(SaveCoachDTO SaveCoachDTO){
+
+        if(redisTemplate.hasKey(SaveCoachDTO.getIdCoach().toString())){
+            CoachDTO coachDTO = (CoachDTO) redisTemplate.opsForValue().get(SaveCoachDTO.getIdCoach().toString());
+            logger.info("une notif trouvée pour le coach connecté : "+ SaveCoachDTO.getIdCoach());
+            try {
+                this.send(coachDTO);
+                redisTemplate.delete(SaveCoachDTO.getIdCoach().toString());
+            } catch (MqttException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+
+    }
+
+
+    public void UnsubscribeCoachCache(SaveCoachDTO deleteCoachDTO){
+
+        try {
+            redisTemplate.opsForList().remove("connectedCoach", 0, deleteCoachDTO.getIdCoach());
+            logger.info("Coach supprimé du cache");
+        }catch (Exception e){
+            logger.info("Erreur sup du cache");
+        }
 
     }
 
@@ -74,6 +112,7 @@ public class NotificationService {
                 encodedPayload = payload.getBytes("UTF-8");
                 MqttMessage message = new MqttMessage(encodedPayload);
                 publisher.publish(topic, message);
+                logger.info("coach notified " + coachDTO.getCoachFirstName());
             } catch (UnsupportedEncodingException e) {
                 throw new RuntimeException(e);
             }
@@ -83,18 +122,15 @@ public class NotificationService {
 
     }
 
-    // TODO : cette fonction doit savoir si le coach est connecté (inscript au TOPIC du mqtt BROKER) ou pas
+
     public boolean coachConnected(CoachDTO coachDTO){
-        return true;
-        //return false;
-    }
 
 
-    // TODO : cette fonction doit s'excuter automatiquement lorsque un nouveau coach se s'inscrit au TOPIC
-    // TODO : elle doit verifier si il y a des messages qui appartiennent au coach dans le cache et les envoyés.
-    public boolean conectCoach(CoachDTO coachDTO){
-        return true;
+        List<Object> list = redisTemplate.opsForList().range("connectedCoach", 0, -1);
+        return list.stream().anyMatch(o -> o.equals(coachDTO.getIdCoach().intValue()));
+
     }
+
 
 
 }
