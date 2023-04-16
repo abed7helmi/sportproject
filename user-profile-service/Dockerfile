@@ -1,4 +1,12 @@
 FROM openjdk:17
-EXPOSE 8084
-COPY target/user-profile-service-docker.jar user-profile-service-docker.jar
-ENTRYPOINT ["java","-jar","/user-profile-service-docker.jar"]
+# Set the working directory
+WORKDIR /app
+
+# Copy the jar file to the working directory
+COPY target/*.jar userprofileservice.jar
+
+
+
+
+# Run the application
+CMD ["java", "-jar", "userprofileservice.jar"]

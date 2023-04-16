@@ -1,4 +1,12 @@
 FROM openjdk:17
-EXPOSE 8085
-COPY target/emergency-notification-agent-service-docker.jar emergency-notification-agent-service-docker.jar
-ENTRYPOINT ["java","-jar","/emergency-notification-agent-service-docker.jar"]
+# Set the working directory
+WORKDIR /app
+
+# Copy the jar file to the working directory
+COPY target/*.jar emergencynotificationagentservice.jar
+
+
+
+
+# Run the application
+CMD ["java", "-jar", "emergencynotificationagentservice.jar"]

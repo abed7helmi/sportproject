@@ -1,4 +1,12 @@
 FROM openjdk:17
-EXPOSE 8083
-COPY target/heart-rate-second-worker-service-docker.jar heart-rate-second-worker-service-docker.jar
-ENTRYPOINT ["java","-jar","/heart-rate-second-worker-service-docker.jar"]
+# Set the working directory
+WORKDIR /app
+
+# Copy the jar file to the working directory
+COPY target/*.jar heartrateworker.jar
+
+
+
+
+# Run the application
+CMD ["java", "-jar", "heartrateworker.jar"]

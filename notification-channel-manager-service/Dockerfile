@@ -1,4 +1,12 @@
 FROM openjdk:17
-EXPOSE 8086
-COPY target/notification-channel-manager-service-docker.jar notification-channel-manager-service-docker.jar
-ENTRYPOINT ["java","-jar","/notification-channel-manager-service-docker.jar"]
+# Set the working directory
+WORKDIR /app
+
+# Copy the jar file to the working directory
+COPY target/*.jar notificationchannelmanagerservice.jar
+
+
+
+
+# Run the application
+CMD ["java", "-jar", "notificationchannelmanagerservice.jar"]

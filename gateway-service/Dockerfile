@@ -1,4 +1,12 @@
 FROM openjdk:17
-EXPOSE 9999
-COPY target/gateway-service-docker.jar gateway-service-docker.jar
-ENTRYPOINT ["java","-jar","/gateway-service-docker.jar"]
+# Set the working directory
+WORKDIR /app
+
+# Copy the jar file to the working directory
+COPY target/*.jar gatewayservice.jar
+
+
+
+
+# Run the application
+CMD ["java", "-jar", "gatewayservice.jar"]
