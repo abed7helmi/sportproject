@@ -15,9 +15,6 @@ public class HrSensorDTO {
 
     Long idHrSensor ;
     String state;
-    double cardiacFrequency;
-    Date date;
-    Long  idmember;
-
-    //Long memberId;
+    Double cardiacFrequency;
+    Long  idMember;
 }

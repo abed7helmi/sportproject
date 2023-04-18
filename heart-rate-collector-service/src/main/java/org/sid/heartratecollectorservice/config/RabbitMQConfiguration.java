@@ -19,7 +19,7 @@ public class RabbitMQConfiguration {
     private static final String ROUTING_A = "routing.HeartRate";
 
 
-    /*@Bean
+@Bean
     public ConnectionFactory connectionFactory() {
         CachingConnectionFactory connectionFactory = new CachingConnectionFactory();
         connectionFactory.setUsername("guest");
@@ -27,7 +27,8 @@ public class RabbitMQConfiguration {
         connectionFactory.setAddresses("127.0.0.1:15672,127.0.0.1:15673");
         //connectionFactory.setChannelCacheSize(10);
         return connectionFactory;
-    } */
+    }
+
 
     @Bean
     Queue queueA(){
@@ -37,12 +38,12 @@ public class RabbitMQConfiguration {
 
 
 
-    @Bean
+   @Bean
     DirectExchange exchange(){
         return new DirectExchange("exchange.direct");
     }
 
-    @Bean
+    //@Bean
     Binding binding(Queue queueA, DirectExchange exchange){
         return BindingBuilder.bind(queueA)
                 .to(exchange)
@@ -51,13 +52,13 @@ public class RabbitMQConfiguration {
 
 
 
-    @Bean
+   // @Bean
     MessageConverter messageConverter() {
         return new Jackson2JsonMessageConverter();
     }
 
 
-    @Bean
+    //@Bean
     RabbitTemplate rabbitTemplate(ConnectionFactory factory){
         RabbitTemplate rabbitTemplate=new RabbitTemplate(factory);
         rabbitTemplate.setMessageConverter(messageConverter());
