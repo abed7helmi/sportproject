@@ -1,3 +1,12 @@
 FROM openjdk:17
-COPY target/*.jar app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+# Set the working directory
+WORKDIR /app
+
+# Copy the jar file to the working directory
+COPY target/*.jar userprofileservice.jar
+
+
+
+
+# Run the application
+CMD ["java", "-jar", "userprofileservice.jar"]

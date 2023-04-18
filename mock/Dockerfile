@@ -3,10 +3,10 @@ FROM openjdk:17
 WORKDIR /app
 
 # Copy the jar file to the working directory
-COPY target/*.jar heartratecollectorservice.jar
+COPY target/*.jar mock.jar
 
 
 
 
 # Run the application
-CMD ["java", "-jar", "heartratecollectorservice.jar"]
+CMD ["java", "-jar", "mock.jar"]
