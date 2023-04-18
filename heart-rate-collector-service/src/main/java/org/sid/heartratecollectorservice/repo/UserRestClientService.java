@@ -1,6 +1,7 @@
-package org.sid.heartratesecondworkerservice.repo;
+package org.sid.heartratecollectorservice.repo;
 
-import org.sid.heartratesecondworkerservice.models.Member;
+
+import org.sid.heartratecollectorservice.models.Member;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

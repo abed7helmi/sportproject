@@ -12,9 +12,6 @@ public class UserProfileServiceApplication {
 		SpringApplication.run(UserProfileServiceApplication.class, args);
 	}
 
-	@Bean
-	public RestTemplate restTemplate(){
-		return new RestTemplate();
-	}
+
 
 }

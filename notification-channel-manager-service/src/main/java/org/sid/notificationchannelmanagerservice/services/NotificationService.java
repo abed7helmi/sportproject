@@ -1,31 +1,25 @@
 package org.sid.notificationchannelmanagerservice.services;
 
-import org.eclipse.paho.client.mqttv3.*;
+
 import org.sid.notificationchannelmanagerservice.dto.CoachDTO;
 import org.sid.notificationchannelmanagerservice.dto.SaveCoachDTO;
-import org.sid.notificationchannelmanagerservice.web.Consumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 @Service
 public class NotificationService {
 
-    @Autowired
-    private RedisTemplate redisTemplate;
+
 
     Logger logger = LoggerFactory.getLogger(NotificationService.class);
 
-    public void sendOrCache(CoachDTO coachDTO){
+    /*public void sendOrCache(CoachDTO coachDTO){
         if(this.coachConnected(coachDTO)){
             try {
                 logger.info("connected coach : "+ coachDTO.getCoachFirstName());
@@ -129,7 +123,7 @@ public class NotificationService {
         List<Object> list = redisTemplate.opsForList().range("connectedCoach", 0, -1);
         return list.stream().anyMatch(o -> o.equals(coachDTO.getIdCoach().intValue()));
 
-    }
+    }*/
 
 
 

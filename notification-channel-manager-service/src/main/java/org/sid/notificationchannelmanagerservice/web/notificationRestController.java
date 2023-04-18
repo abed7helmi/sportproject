@@ -3,6 +3,7 @@ package org.sid.notificationchannelmanagerservice.web;
 
 
 import org.sid.notificationchannelmanagerservice.dto.SaveCoachDTO;
+import org.sid.notificationchannelmanagerservice.services.CoachService;
 import org.sid.notificationchannelmanagerservice.services.NotificationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,11 +18,15 @@ public class notificationRestController {
     @Autowired
     NotificationService notificationService;
 
+    @Autowired
+    CoachService coachService;
+
     Logger logger = LoggerFactory.getLogger(notificationRestController.class);
     @PostMapping(value ="/subscribeCoach",consumes="application/json")
     public void subscribeCoach(@RequestBody SaveCoachDTO coach) {
         logger.info("Ressive from gateway , COACH inscrit : " + coach );
-        notificationService.subscribeCoachCache(coach);
+        //notificationService.subscribeCoachCache(coach);
+        coachService.subscribeCoachCommandHandler(coach);
 
 
     }
@@ -29,7 +34,8 @@ public class notificationRestController {
     @PostMapping(value ="/unsubscribeCoach",consumes="application/json")
     public void unsubscribeCoach(@RequestBody SaveCoachDTO coach) {
         logger.info("Ressive from gateway , COACH a quitté la salle : " + coach );
-        notificationService.UnsubscribeCoachCache(coach);
+        //notificationService.UnsubscribeCoachCache(coach);
+        coachService.UnsubscribeCoachCommandHandler(coach);
 
 
     }

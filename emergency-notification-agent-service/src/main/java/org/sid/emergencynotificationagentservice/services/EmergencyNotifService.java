@@ -29,7 +29,7 @@ public class EmergencyNotifService {
         Member m1=memberRepository.findById(hrSensorDTO.getIdmember()).get();
         Coach c1=coachRepository.findById(m1.getCoach().getIdCoach()).get();
         CoachDTO coachDTO= new CoachDTO(c1.getIdCoach(), c1.getCoachFirstName(), m1.getIdMember(), m1.getMemberFirstName(),hrSensorDTO.getCardiacFrequency());
-        producer.send(coachDTO);
+        //producer.send(coachDTO);
         logger.info("message send to RabbitMQ NotifQueue : "+coachDTO);
 
 

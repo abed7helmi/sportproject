@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Entity;
 import java.util.Date;
 
 @Data
@@ -12,7 +13,6 @@ import java.util.Date;
 @AllArgsConstructor
 @Builder
 public class HrSensorDTO {
-
     Long idHrSensor ;
     String state;
     double cardiacFrequency;
