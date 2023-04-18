@@ -16,16 +16,11 @@ import javax.persistence.*;
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long idMember;
-    String memberFirstName;
-    String sexe;
-    int age;
-    /*String memberLastName;
-    String memberEmail;
-    String memberPhone;*/
-    Boolean memberSubscription;
-    /*@OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
-    private List<HrSensor> Hrs= new ArrayList<>();*/
+    private Long idMember;
+    private String memberFirstName;
+    private String sexe;
+    private int age;
+    private Boolean memberSubscription;
     @ManyToOne()
     private Coach coach;
 }
