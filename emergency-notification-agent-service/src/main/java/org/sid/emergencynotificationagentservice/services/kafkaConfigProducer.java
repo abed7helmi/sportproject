@@ -14,9 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class kafkaConfigProducer {
-
     private final KafkaTemplate<String, Member> kafkaTemplate;
-
     public void sendEmergencyCase(Member data) {
         Message<Member> message = MessageBuilder.withPayload(data)
                 .setHeader(KafkaHeaders.TOPIC, "emergency-data-collector")

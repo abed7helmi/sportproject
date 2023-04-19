@@ -28,12 +28,8 @@ public class HeartRateService {
 
     public boolean checkEmergency (Member member,HrSensorDTO hrSensorDTO){
         // La méthode la plus fiable que nous vous conseillons : FC max = 207 – 0,7 x âge
-        Double CardiacMax = 207 - 0.7*member.getAge();
-        if (hrSensorDTO.getCardiacFrequency()>CardiacMax){
-            return true;
-        }else {
-            return false;
-        }
+        Double cardiacMax = 207 - 0.7*member.getAge();
+        return hrSensorDTO.getCardiacFrequency()>cardiacMax ? true : false;
 
     }
 
@@ -44,7 +40,6 @@ public class HeartRateService {
             log.info("USER "+ member.getMemberFirstName()+" SUBSCRIBED");
             if(checkEmergency(member,hrSensorDTO)){
                 kafkaConfigProducer.sendEmergencyCase(member);
-                //producer.send(hrSensorDTO);
                 log.warn("CONTACT EMERGENCY SERVICE FOR USER  "+ member);
                 hrSensorDTO.setState("NOT GOOD");
             }
