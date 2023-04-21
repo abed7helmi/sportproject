@@ -15,6 +15,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -51,11 +52,11 @@ public class SportJob {
 
            for (Member m: members ){
 
-                HrSensor hr = HrSensor.builder().state("").cardiacFrequency(160+Math.random()*20).date(null).member(m).build();
+                HrSensor hr = HrSensor.builder().state("").cardiacFrequency(160+Math.random()*20).date(new Date()).member(m).build();
 
 
                 //hrSensorRepository.save(hr);
-                HrSensorDTO hrSensorDTO = new HrSensorDTO(hr.getIdHrSensor(),hr.getState(),hr.getCardiacFrequency(),hr.getDate(),hr.getMember().getIdMember());
+                HrSensorDTO hrSensorDTO = new HrSensorDTO(null,hr.getState(),hr.getCardiacFrequency(),hr.getDate(),hr.getMember().getIdMember());
                 heartRateProxy.sendHr(hrSensorDTO);
 
 

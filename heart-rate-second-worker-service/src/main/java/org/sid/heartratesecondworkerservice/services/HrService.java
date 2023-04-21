@@ -1,13 +1,12 @@
 package org.sid.heartratesecondworkerservice.services;
 
 
-import org.sid.heartratesecondworkerservice.dto.HrSensorDTO;
-import org.sid.heartratesecondworkerservice.models.Member;
-import org.sid.heartratesecondworkerservice.repo.HrSensorRepository;
-import org.sid.heartratesecondworkerservice.repo.UserRestClientService;
+import org.sid.heartratesecondworkerservice.event.HrSensorDTO;
+import org.sid.heartratesecondworkerservice.event.HrEmergencyEventRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,52 +14,42 @@ import org.springframework.stereotype.Service;
 public class HrService {
 
     Logger logger = LoggerFactory.getLogger(HrService.class);
-    @Autowired
-    private UserRestClientService userRestClientService;
+
 
     @Autowired
-    private HrSensorRepository hrSensorRepository;
+    private HrEmergencyEventRepository hrEmergencyEventRepository;
 
     @Autowired
-    private Producer producer;
+    private StreamBridge streamBridge;
 
-    public void checkHr (HrSensorDTO hrSensorDTO){
-        Member member= userRestClientService.mumberById(hrSensorDTO.getIdmember());
-        if(this.checkSubscrib(member)){
-            logger.info("USER "+ member.getMemberFirstName()+" SUBSCRIBED");
 
-            if(this.checkEmergency(member,hrSensorDTO)){
 
-                producer.send(hrSensorDTO);
-                logger.warn("CONTACT EMERGENCY SERVICE FOR USER  "+ member);
-                hrSensorDTO.setState("NOT GOOD");
-            }
-            this.dataStorage(hrSensorDTO);
-        }else {
-            logger.warn("USER "+ member.getMemberFirstName()+" NOT SUBSCRIBED");
+    public void hrEventCommmandHandler(HrSensorDTO hrSensorDTO) {
+
+        if(this.checkEmergency(hrSensorDTO)){
+            this.hrEventEvenSourcingHandler(hrSensorDTO);
+
+
         }
-
     }
 
-    public boolean checkSubscrib (Member m){
-
-        if (m.getMemberSubscription()==true){
-            return true;
-        }else {
-            return false;
-        }
+    private void hrEventEvenSourcingHandler(HrSensorDTO hrSensorDTO) {
+        logger.warn("CONTACT EMERGENCY SERVICE FOR USER  "+ hrSensorDTO.getIdmember());
+        hrSensorDTO.setState("Urgence");
+        hrEmergencyEventRepository.save(hrSensorDTO);
+        streamBridge.send("event_hr_emergency",hrSensorDTO);
+        logger.info("event Hr stocke dans l'event store et envoyé vers le topic event_hr_emergency: "+  hrSensorDTO);
 
     }
 
 
-
-    public boolean checkEmergency (Member member,HrSensorDTO hrSensorDTO){
+    public boolean checkEmergency (HrSensorDTO hrSensorDTO){
 
 
         // La méthode la plus fiable que nous vous conseillons : FC max = 207 – 0,7 x âge
         // https://www.irbms.com/calculer-sa-frequence-cardiaque-pour-un-effort/#:~:text=La%20formule%20d%27Haskell%20et,une%20FC%20max%20de%20160.
 
-        Double CardiacMax = 207 - 0.7*member.getAge();
+        Double CardiacMax = 207 - 0.7*hrSensorDTO.getAge();
         if (hrSensorDTO.getCardiacFrequency()>CardiacMax){
             return true;
         }else {
@@ -70,7 +59,5 @@ public class HrService {
     }
 
 
-    private void dataStorage (HrSensorDTO hrSensorDTO){
-        hrSensorRepository.save(hrSensorDTO);
-    }
+
 }

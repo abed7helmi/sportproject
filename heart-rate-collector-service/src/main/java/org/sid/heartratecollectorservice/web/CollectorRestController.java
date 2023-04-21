@@ -1,9 +1,8 @@
 package org.sid.heartratecollectorservice.web;
 
 
-import org.sid.heartratecollectorservice.dto.HrSensorDTO;
+import org.sid.heartratecollectorservice.event.HrSensorDTO;
 import org.sid.heartratecollectorservice.services.HrCollectorService;
-import org.sid.heartratecollectorservice.services.Producer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,7 @@ public class CollectorRestController {
     public void sendhr(@RequestBody HrSensorDTO hrSensor) {
         logger.info("HR "+hrSensor + "RECEIVED FROM THE GATEWAY ");
         hrCollectorService.hrCollectorCommandHandler(hrSensor);
-        //producer.send(hrSensor);
+
 
 
     }

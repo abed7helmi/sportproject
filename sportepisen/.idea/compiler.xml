@@ -11,6 +11,7 @@
         <module name="gateway-service" />
         <module name="emergency-notification-agent-service" />
         <module name="mock" />
+        <module name="events-collector-service" />
         <module name="heart-rate-collector-service" />
         <module name="user-profile-service" />
         <module name="notification-channel-manager-service" />
@@ -18,6 +19,9 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="billing" target="17" />
+      <module name="event-collector-service" target="17" />
+      <module name="eventCollector" target="17" />
+      <module name="events-collect-service" target="17" />
       <module name="heart-rate-worker-service" target="17" />
       <module name="heart-rate-worker-service (1)" target="17" />
       <module name="heart-rate-worker-service (2)" target="17" />
@@ -28,6 +32,10 @@
       <module name="billing" options="-parameters" />
       <module name="config-service" options="-parameters" />
       <module name="emergency-notification-agent-service" options="-parameters" />
+      <module name="event-collector-service" options="-parameters" />
+      <module name="eventCollector" options="-parameters" />
+      <module name="events-collect-service" options="-parameters" />
+      <module name="events-collector-service" options="-parameters" />
       <module name="gateway-service" options="-parameters" />
       <module name="heart-rate-collector-service" options="-parameters" />
       <module name="heart-rate-second-worker-service" options="-parameters" />

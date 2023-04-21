@@ -21,7 +21,7 @@ public class CoachService {
     private CoachRestClientService coachRestClientService;
 
     @Autowired
-    private StreamBridge streamBridge; // fonctionne avec n'importe quel broker
+    private StreamBridge streamBridge;
 
     @Autowired
     private CoachConnectedEventRepository coachConnectedEventRepository ;
@@ -50,7 +50,7 @@ public class CoachService {
         CoachConnectedEvent coachConnectedEvent=new CoachConnectedEvent(null, LocalDateTime.now(),coachId,coach.getCoachFirstName(),sub);
         coachConnectedEventRepository.save(coachConnectedEvent);
         streamBridge.send("event_coach_cnx",coachConnectedEvent);
-        logger.info("a7chi");
+        logger.info("envoyé vers le topic event_coach_cnx " + coachConnectedEvent);
 
 
     }

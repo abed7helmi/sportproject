@@ -15,8 +15,5 @@ public class Member {
     String memberFirstName;
     String sexe;
     int age;
-    /*String memberLastName;
-    String memberEmail;
-    String memberPhone;*/
     Boolean memberSubscription;
 }
