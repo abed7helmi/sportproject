@@ -16,7 +16,6 @@ public class HeartRateEventController {
 
     private final HearRateServiceEventProducer kafkaProducer;
 
-
     @PostMapping("/hr")
     public ResponseEntity<String> publishHeartRate(@RequestBody HrSensorDTO hrSensorDTO){
         kafkaProducer.sendHeartRateMessage(hrSensorDTO);

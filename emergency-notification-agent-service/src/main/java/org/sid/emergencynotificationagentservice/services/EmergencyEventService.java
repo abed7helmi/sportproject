@@ -6,8 +6,8 @@ import org.sid.emergencynotificationagentservice.dto.CoachDTO;
 import org.sid.emergencynotificationagentservice.dto.HrSensorDTO;
 import org.sid.emergencynotificationagentservice.entities.Member;
 import org.sid.emergencynotificationagentservice.repo.MemberRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +26,6 @@ public class EmergencyEventService {
 
 
     public boolean checkMemberSubscribe(Member m){
-
         if (m.getMemberSubscription()){
             return true;
         }else {
@@ -45,12 +44,13 @@ public class EmergencyEventService {
     public void checkHeartRateEmergency (HrSensorDTO hrSensorDTO){
         Member member= memberRepository.findById(hrSensorDTO.getIdMember())
                 .orElseThrow(() -> new RuntimeException( "this id " + hrSensorDTO. getIdMember() + "doesn't exist"));
-        CoachDTO coachDTO = new CoachDTO(member.getCoach().getId(),member.getIdMember(), member.getName(), hrSensorDTO.getCardiacFrequency());
+        CoachDTO coachDTO = new CoachDTO(member.getCoach().getId(),member.getCoach().getNom(), member.getIdMember(), member.getName(), hrSensorDTO.getCardiacFrequency(), member.getAge());
+        log.info(String.format("Coach Info -> %s", coachDTO));
         if(checkMemberSubscribe(member)){
-            log.info("USER "+ member.getName()+" SUBSCRIBED");
+            log.info("USER "+ member.getName()+" IS SUBSCRIBED");
             if(checkEmergency(member,hrSensorDTO)){
                 kafkaTemplate.send("emergency-data-collector", coachDTO);
-                log.warn(String.format("Message sent -> %s", coachDTO));
+                log.warn(String.format("Message sent : Emergency -> %s", coachDTO));
                 hrSensorDTO.setState("NOT GOOD");
                 redisTemplate.opsForValue().set(String.valueOf(member.getIdMember()), coachDTO);
                 log.warn(String.format("Message sent -> %s", member.getIdMember()));

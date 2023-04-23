@@ -12,7 +12,10 @@ import lombok.NoArgsConstructor;
 public class CoachDTO {
 
     private Long idCoach;
+    private String CoachName;
     private Long idMember;
     private String memberFirstName;
     private Double cardiacFrequency;
+    private Integer memberAge;
+
 }

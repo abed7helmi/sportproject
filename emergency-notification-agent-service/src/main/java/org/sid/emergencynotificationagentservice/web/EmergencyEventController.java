@@ -6,7 +6,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.sid.emergencynotificationagentservice.dto.HrSensorDTO;
 import org.sid.emergencynotificationagentservice.services.EmergencyEventService;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
@@ -16,8 +20,9 @@ public class EmergencyEventController {
 
     private final EmergencyEventService emergencyEventService;
 
-    @GetMapping("/checkEmergencyTopic")
-    @KafkaListener(topics = "hr-data-collector", groupId = "groupId")
+    @KafkaListener(topics = "hr-data-collector",
+            groupId = "${spring.kafka.consumer.group-id}",
+            containerFactory = "kafkaListenerContainerFactory")
     public void checkHeartRate(HrSensorDTO heartRateData) {
         log.info(String.format("Message sent -> %s", heartRateData));
         emergencyEventService.checkHeartRateEmergency(heartRateData);

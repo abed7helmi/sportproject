@@ -17,7 +17,7 @@ public record HearRateServiceEventProducer(KafkaTemplate<String, HrSensorDTO> ka
                 .setHeader(KafkaHeaders.TOPIC, "hr-data-collector")
                 .build();
         kafkaTemplate.send(message);
-        log.info(String.format("Message sent -> %s", data));
+        log.info(String.format("Event heart sent -> %s", data));
     }
 
 }
