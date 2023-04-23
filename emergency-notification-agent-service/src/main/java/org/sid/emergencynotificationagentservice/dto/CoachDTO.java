@@ -10,10 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class CoachDTO {
-    Long idCoach;
-    String coachFirstName;
-    Long idMember;
-    String memberFirstName;
 
-    double cardiacFrequency;
+    private Long idCoach;
+    private Long idMember;
+    private String memberFirstName;
+    private Double cardiacFrequency;
 }

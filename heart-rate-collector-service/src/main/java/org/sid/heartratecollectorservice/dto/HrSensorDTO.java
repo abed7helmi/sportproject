@@ -13,8 +13,8 @@ import java.util.Date;
 @Builder
 public class HrSensorDTO {
 
-    Long idHrSensor ;
-    String state;
-    Double cardiacFrequency;
-    Long  idMember;
+    private Long idHrSensor ;
+    private String state;
+    private Double cardiacFrequency;
+    private Long  idMember;
 }

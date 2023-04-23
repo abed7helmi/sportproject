@@ -1,0 +1,11 @@
+org\sid\heartrateworkerservice\services\HrService.class
+org\sid\heartrateworkerservice\services\Producer.class
+org\sid\heartrateworkerservice\web\Consumer.class
+org\sid\heartrateworkerservice\models\Member$MemberBuilder.class
+org\sid\heartrateworkerservice\repo\HrSensorRepository.class
+org\sid\heartrateworkerservice\dto\HrSensorDTO.class
+org\sid\heartrateworkerservice\HeartRateWorkerServiceApplication.class
+org\sid\heartrateworkerservice\repo\UserRestClientService.class
+org\sid\heartrateworkerservice\config\RabbitMQConfiguration.class
+org\sid\heartrateworkerservice\models\Member.class
+org\sid\heartrateworkerservice\dto\HrSensorDTO$HrSensorDTOBuilder.class

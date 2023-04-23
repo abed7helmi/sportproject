@@ -1,0 +1,9 @@
+C:\Users\elhad\Documents\git\Nouveau dossier\sportproject\heart-rate-worker-service\src\main\java\org\sid\heartrateworkerservice\dto\HrSensorDTO.java
+C:\Users\elhad\Documents\git\Nouveau dossier\sportproject\heart-rate-worker-service\src\main\java\org\sid\heartrateworkerservice\services\HrService.java
+C:\Users\elhad\Documents\git\Nouveau dossier\sportproject\heart-rate-worker-service\src\main\java\org\sid\heartrateworkerservice\services\Producer.java
+C:\Users\elhad\Documents\git\Nouveau dossier\sportproject\heart-rate-worker-service\src\main\java\org\sid\heartrateworkerservice\web\Consumer.java
+C:\Users\elhad\Documents\git\Nouveau dossier\sportproject\heart-rate-worker-service\src\main\java\org\sid\heartrateworkerservice\config\RabbitMQConfiguration.java
+C:\Users\elhad\Documents\git\Nouveau dossier\sportproject\heart-rate-worker-service\src\main\java\org\sid\heartrateworkerservice\HeartRateWorkerServiceApplication.java
+C:\Users\elhad\Documents\git\Nouveau dossier\sportproject\heart-rate-worker-service\src\main\java\org\sid\heartrateworkerservice\repo\UserRestClientService.java
+C:\Users\elhad\Documents\git\Nouveau dossier\sportproject\heart-rate-worker-service\src\main\java\org\sid\heartrateworkerservice\models\Member.java
+C:\Users\elhad\Documents\git\Nouveau dossier\sportproject\heart-rate-worker-service\src\main\java\org\sid\heartrateworkerservice\repo\HrSensorRepository.java

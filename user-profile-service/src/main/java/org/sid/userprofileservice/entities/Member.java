@@ -17,16 +17,11 @@ import java.util.List;
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long idMember;
-    String memberFirstName;
-    String sexe;
-    int age;
-    /*String memberLastName;
-    String memberEmail;
-    String memberPhone;*/
-    Boolean memberSubscription;
-    /*@OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
-    private List<HrSensor> Hrs= new ArrayList<>();
-    @ManyToOne()
-    private Coach coach;*/
+    private Long idMember;
+    private String name;
+    private String sexe;
+    private Integer age;
+    private Boolean memberSubscription;
+    @ManyToOne
+    private Coach coach;
 }

@@ -17,14 +17,8 @@ import java.util.List;
 public class Coach {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long idCoach;
-    String coachFirstName;
-    /*String coachLastName;
-    String coachEmail;
-    String coachPhone;*/
-
-    @OneToMany(mappedBy = "coach", fetch = FetchType.LAZY)
-    //@JsonIgnore
-    //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private List<Member> members= new ArrayList<>();
+    private Long id;
+    private String nom;
+    @OneToMany(mappedBy = "coach")
+    private List<Member> user = new ArrayList<>();
 }

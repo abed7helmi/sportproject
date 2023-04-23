@@ -17,10 +17,10 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idMember;
-    private String memberFirstName;
+    private String name;
     private String sexe;
-    private int age;
+    private Integer age;
     private Boolean memberSubscription;
-    @ManyToOne()
+    @ManyToOne
     private Coach coach;
 }
