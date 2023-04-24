@@ -13,22 +13,26 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var name:EditText
     private lateinit var button: Button
+    private var topic = "session"
 
     private val mqttClient by lazy {
         MqttService(this.applicationContext)
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        name = findViewById(R.id.nameText)
-        val submitButton = findViewById<Button>(R.id.button)
+        mqttClient.connect()
 
-        submitButton.setOnClickListener {
-            val name = name.text.toString()
-            println("my name is $name")
+        name = binding.nameText
+        button = binding.button
+
+        button.setOnClickListener {
+            val text = name.text.toString()
+            mqttClient.publishToTopic(topic, text)
+            println("message -> $text")
         }
 
     }
+
 }

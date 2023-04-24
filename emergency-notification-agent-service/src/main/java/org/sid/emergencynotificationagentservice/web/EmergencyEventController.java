@@ -21,7 +21,7 @@ public class EmergencyEventController {
             groupId = "${spring.kafka.consumer.group-id}",
             containerFactory = "kafkaListenerContainerFactory")
     public void checkHeartRate(HrSensorDTO heartRateData) {
-        log.info(String.format("Message sent -> %s", heartRateData));
+        log.info(String.format("Message receive -> %s", heartRateData));
         emergencyEventService.checkHeartRateEmergency(heartRateData);
     }
 }

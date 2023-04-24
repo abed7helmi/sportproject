@@ -1,6 +1,6 @@
 package org.sid.notificationchannelmanagerservice.config;
 
-import org.sid.emergencynotificationagentservice.entities.Member;
+import org.sid.notificationchannelmanagerservice.dto.CoachDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -31,8 +31,8 @@ public class RedisConfig {
     }
 
     @Bean
-    public RedisTemplate<String, Member> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
-        RedisTemplate<String, Member> redisTemplate = new RedisTemplate<>();
+    public RedisTemplate<String, CoachDTO> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+        RedisTemplate<String, CoachDTO> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory);
         redisTemplate.setConnectionFactory(redisConnectionFactory);
         redisTemplate.setKeySerializer(new StringRedisSerializer());

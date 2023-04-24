@@ -50,7 +50,7 @@ public class EmergencyEventService {
             log.info("USER "+ member.getName()+" IS SUBSCRIBED");
             if(checkEmergency(member,hrSensorDTO)){
                 kafkaTemplate.send("emergency-data-collector", coachDTO);
-                log.warn(String.format("Message sent : Emergency -> %s", coachDTO));
+                log.warn(String.format("Message sent : in Emergency Topic -> %s", coachDTO));
                 hrSensorDTO.setState("NOT GOOD");
                 redisTemplate.opsForValue().set(String.valueOf(member.getIdMember()), coachDTO);
                 log.warn(String.format("Message sent -> %s", member.getIdMember()));
