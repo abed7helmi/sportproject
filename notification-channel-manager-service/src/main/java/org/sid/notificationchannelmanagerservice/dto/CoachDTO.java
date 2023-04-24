@@ -11,10 +11,13 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CoachDTO implements Serializable {
-    Long idCoach;
-    String coachFirstName;
-    Long idMember;
-    String memberFirstName;
-    double cardiacFrequency;
+public class CoachDTO {
+
+    private Long idCoach;
+    private String CoachName;
+    private Long idMember;
+    private String memberFirstName;
+    private Double cardiacFrequency;
+    private Integer memberAge;
+
 }

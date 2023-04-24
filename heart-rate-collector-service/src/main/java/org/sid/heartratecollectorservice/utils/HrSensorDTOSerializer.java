@@ -1,4 +1,4 @@
-package org.sid.heartratecollectorservice.serialize;
+package org.sid.heartratecollectorservice.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.common.errors.SerializationException;

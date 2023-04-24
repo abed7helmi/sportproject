@@ -3,19 +3,15 @@ package org.sid.notificationchannelmanagerservice.services;
 import org.eclipse.paho.client.mqttv3.*;
 import org.sid.notificationchannelmanagerservice.dto.CoachDTO;
 import org.sid.notificationchannelmanagerservice.dto.SaveCoachDTO;
-import org.sid.notificationchannelmanagerservice.web.Consumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 @Service
 public class NotificationService {
@@ -28,7 +24,7 @@ public class NotificationService {
     public void sendOrCache(CoachDTO coachDTO){
         if(this.coachConnected(coachDTO)){
             try {
-                logger.info("connected coach : "+ coachDTO.getCoachFirstName());
+                logger.info("connected coach : "+ coachDTO.getCoachName());
                 this.send(coachDTO);
 
             } catch (MqttException e) {
@@ -42,7 +38,7 @@ public class NotificationService {
     // TODO : on peut pas stocker plusieurs notifs pour le meme coach , si une nouvelle notif arrive elle ecrase celle qui existe deja : à ameliorer
     public void cacheCoach(CoachDTO coachDTO){
         redisTemplate.opsForValue().set(coachDTO.getIdCoach().toString(), coachDTO);
-        logger.info("le coach id:"+coachDTO.getIdCoach().toString()+" name : "+coachDTO.getCoachFirstName().toString()+" n'est pas connecté , msg transféré dans le cache");
+        logger.info("le coach id:"+coachDTO.getIdCoach().toString()+" name : "+coachDTO.getCoachName().toString()+" n'est pas connecté , msg transféré dans le cache");
     }
 
 
@@ -89,46 +85,33 @@ public class NotificationService {
 
 
     public void send(CoachDTO coachDTO) throws MqttException {
-
-
         String publisherId = UUID.randomUUID().toString();
         IMqttClient publisher = new MqttClient("tcp://broker.hivemq.com:1883",publisherId);
-
-
         if ( !publisher.isConnected()) {
-
             MqttConnectOptions options = new MqttConnectOptions();
             options.setAutomaticReconnect(true);
             options.setCleanSession(true);
             options.setConnectionTimeout(10);
             publisher.connect(options);
-
-
             String topic = "testtopic/coach";
-            String payload = "Bonjour "+coachDTO.getCoachFirstName()+" (id:"+coachDTO.getIdCoach()+", le membre "+ coachDTO.getMemberFirstName() + " est en danger";
-
+            String payload = "Bonjour "+coachDTO.getCoachName()+" (id:"+coachDTO.getIdCoach()+", le membre "+ coachDTO.getMemberFirstName() + " est en danger";
             byte[] encodedPayload = new byte[0];
             try {
                 encodedPayload = payload.getBytes("UTF-8");
                 MqttMessage message = new MqttMessage(encodedPayload);
                 publisher.publish(topic, message);
-                logger.info("coach notified " + coachDTO.getCoachFirstName());
+                logger.info("coach notified " + coachDTO.getCoachName());
             } catch (UnsupportedEncodingException e) {
                 throw new RuntimeException(e);
             }
-
         }
-
 
     }
 
 
     public boolean coachConnected(CoachDTO coachDTO){
-
-
         List<Object> list = redisTemplate.opsForList().range("connectedCoach", 0, -1);
         return list.stream().anyMatch(o -> o.equals(coachDTO.getIdCoach().intValue()));
-
     }
 
 

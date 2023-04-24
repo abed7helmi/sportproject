@@ -17,15 +17,13 @@ public class Consumer {
 
     @Autowired
     private NotificationService notificationService;
-    Logger logger = LoggerFactory.getLogger(Consumer.class);
 
-    @RabbitListener(queues = "NotifQueue")
+
+    //@RabbitListener(queues = "NotifQueue")
     private void receive(CoachDTO coachDTO) throws MqttException {
 
-        logger.info("Message FROM BROKER NOTIFQUEUE "+coachDTO);
+        log.info("Message FROM BROKER NOTIFQUEUE "+coachDTO);
         notificationService.sendOrCache(coachDTO);
-
-
 
     }
 
