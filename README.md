@@ -1,6 +1,8 @@
 # sportproject Microservice
 spring/rabbitMQ/mango/redis/JPA/Hibernate/MQTT/Docker/SpringCloud/ClusterMysql/.....
 
+Version Evensourcing : branche GRID
+
 # lancement projet 
 
 sudo docker-compose up
